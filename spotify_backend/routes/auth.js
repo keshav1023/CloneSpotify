@@ -39,3 +39,5 @@ router.post("/register",async (req,res) =>{
     return res.status(200).json(userToReturn);
 
 });
+
+module.exports = router;
