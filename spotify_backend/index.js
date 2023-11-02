@@ -18,7 +18,7 @@ mongoose
   .connect(
     "mongodb+srv://lmessi10:" +
       process.env.MONGO_PASSWORD +
-      "@cluster0.dvkiufo.mongodb.net/?retryWrites=true&w=majority",
+      "@cluster0.dvkiufo.mongodb.net/Spotify?retryWrites=true&w=majority",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
