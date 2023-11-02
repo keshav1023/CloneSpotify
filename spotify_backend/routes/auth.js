@@ -40,4 +40,35 @@ router.post("/register",async (req,res) =>{
 
 });
 
+router.post("/login", async (req,res) => {
+    // Get email and password sent by user from req.body.
+    const {email,pasword} = req.body;
+    
+    // Check if user exists , else invalid credentials.
+    const user= await User.findOne({email:email});
+    if(!user){
+        return res
+        .status(403)
+        .json({err: "Invalid credentials !!!"});
+    }
+
+    // If user exists check if the password is correct, if not invalid credentials.
+    const isPasswordValid = await bcrypt.compare(password,user.password);
+    if(!isPasswordValid){
+        return res
+        .status(403)
+        .json({err: "Invalid credentials !!!"});
+    }
+
+    // If credentials are correct return a token to the user 
+    const token = await getToken(user.email, user);
+
+    // Return to user
+    const userToReturn = { ...user.toJSON(), token};
+    delete userToReturn.password;
+    return res.status(200).json(userToReturn);
+
+
+});
+
 module.exports = router;
