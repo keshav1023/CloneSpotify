@@ -4,12 +4,15 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const passport = require("passport"); 
-const User = require("./models/Users")
+const User = require("./models/Users");
+const authRoutes = require("./routes/auth")
 const JwtStrategy = require("passport-jwt").Strategy,
   ExtractJwt = require("passport-jwt").ExtractJwt;
 require("dotenv").config();
 const app = express();
 const port = 8000;
+
+app.use(express.json());
 
 mongoose
   .connect(
@@ -55,6 +58,8 @@ app.get("/", (req, res) => {
   //res - contains data for response
   res.send("Hello World");
 });
+
+app.use("/auth" , authRoutes);
 
 // Telling APP to run on specific port number
 
