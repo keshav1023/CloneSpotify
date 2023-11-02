@@ -7,7 +7,7 @@ const {getToken} =require("../utils/helper")
 // this POST route will help in registering a user
 router.post("/register",async (req,res) =>{
     // runs when /register api is called
-    const {email,password,firstName,lastName,username} = req.body;
+    const {email,password,firstName,lastName,userName} = req.body;
 
     // Does a user with this email already exists
     const user = await User.findOne({email: email});
@@ -25,7 +25,7 @@ router.post("/register",async (req,res) =>{
         password: hashedPassword,
         firstName,
         lastName,
-        username,
+        userName,
     };
     const newUser=await User.create(newUserData);
 
