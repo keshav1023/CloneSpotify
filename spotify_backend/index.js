@@ -3,32 +3,61 @@
 
 const express = require("express");
 const mongoose = require("mongoose");
+const passport = require("passport"); 
+const User = require("./models/Users")
+const JwtStrategy = require("passport-jwt").Strategy,
+  ExtractJwt = require("passport-jwt").ExtractJwt;
 require("dotenv").config();
 const app = express();
 const port = 8000;
 
-mongoose.connect("mongodb+srv://lmessi10:"+process.env.MONGO_PASSWORD+"@cluster0.dvkiufo.mongodb.net/?retryWrites=true&w=majority",
+mongoose
+  .connect(
+    "mongodb+srv://lmessi10:" +
+      process.env.MONGO_PASSWORD +
+      "@cluster0.dvkiufo.mongodb.net/?retryWrites=true&w=majority",
     {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
     }
-).then((x) => {
+  )
+  .then((x) => {
     console.log("Connected to Mongo Database !!!");
-})
-.catch((err) => {
+  })
+  .catch((err) => {
     console.log("Error while connecting to Mongo");
-});
+  });
 
+// setup passpot-jwt
+
+let opts = {};
+opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+opts.secretOrKey = "secretKey";
+passport.use(
+  new JwtStrategy(opts, function (jwt_payload, done) {
+    User.findOne({ id: jwt_payload.sub }, function (err, user) {
+      if (err) {
+        return done(err, false);
+      }
+      if (user) {
+        return done(null, user);
+      } else {
+        return done(null, false);
+        // or you could create a new account
+      }
+    });
+  })
+);
 
 // API GET type "/"
-app.get("/", (req,res) => {
-    //req - contains data for requests
-    //res - contains data for response
-    res.send("Hello World");
+app.get("/", (req, res) => {
+  //req - contains data for requests
+  //res - contains data for response
+  res.send("Hello World");
 });
 
 // Telling APP to run on specific port number
 
 app.listen(port, () => {
-    console.log("App is running on port : " + port);
+  console.log("App is running on port : " + port);
 });
