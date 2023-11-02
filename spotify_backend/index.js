@@ -19,23 +19,6 @@ mongoose.connect("mongodb+srv://lmessi10:"+process.env.MONGO_PASSWORD+"@cluster0
     console.log("Error while connecting to Mongo");
 });
 
-/*
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static("public"));
-
-const dbURL = "mongodb+srv://lmessi10:lmessi10@cluster0.dvkiufo.mongodb.net/ToDoList?retryWrites=true&w=majority";
-app.use(express.json())
-
-const connectionParams={
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}
-mongoose.connect(dbURL, connectionParams).then(()=>{
-    console.info("Connected to DB")
-}).catch((e)=>{
-    console.log("Error:",e);
-})
-*/
 
 // API GET type "/"
 app.get("/", (req,res) => {
