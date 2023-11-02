@@ -53,6 +53,7 @@ passport.use(
 );
 
 // API GET type "/"
+
 app.get("/", (req, res) => {
   //req - contains data for requests
   //res - contains data for response
