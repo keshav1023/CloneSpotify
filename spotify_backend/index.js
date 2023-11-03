@@ -3,7 +3,7 @@
 
 const express = require("express");
 const mongoose = require("mongoose");
-const passport = require("passport"); 
+const passport = require("passport");
 const User = require("./models/Users");
 const authRoutes = require("./routes/auth");
 const songRoutes = require("./routes/song");
@@ -47,7 +47,6 @@ passport.use(
         return done(null, user);
       } else {
         return done(null, false);
-        
       }
     });
   })
@@ -61,8 +60,8 @@ app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
-app.use("/auth" , authRoutes);
-app.use("/song" , songRoutes);
+app.use("/auth", authRoutes);
+app.use("/song", songRoutes);
 
 // Telling APP to run on specific port number
 
