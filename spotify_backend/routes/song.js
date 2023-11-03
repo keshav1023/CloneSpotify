@@ -15,7 +15,7 @@ router.post("/create",
     const artist = req.user._id;
     const songDetails = { name, thumbnail, track, artist };
     const createdSong = await Song.create(songDetails);
-    
+    console.log("Song Created successfuly", createdSong);
     return res.status(200).json(createdSong);
   }
 );
