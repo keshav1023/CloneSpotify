@@ -25,10 +25,10 @@ router.get(
   "/get/mysongs",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
-    
     const currentUser = req.user;
     // We need to get all songs where artist id == currentUser._id
     const songs = await Song.find({ artist: req.user._id });
+    console.log("Here are my songs : \n",songs);
     return res.status(200).json({ data: songs });
   }
   
