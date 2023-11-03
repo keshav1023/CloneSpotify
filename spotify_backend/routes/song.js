@@ -43,9 +43,9 @@ router.get(
   async (req, res) => {
     const { artistId } = req.params;
     // We can check if the artist does not exist
-    const artist = await User.find({ _id: artistId });
+    const artist = await User.findOne({ _id: artistId });
     
-//correction needed    
+  
     if (!artist) {
       res.status(301).json({ err: "Artist does not exist !!!" });
     }
