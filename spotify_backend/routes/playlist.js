@@ -27,7 +27,7 @@ passport.authenticate("jwt", { session: false }),
 
 // Get a playlist by ID
 // playlistId variable gets assigned the value
-router.get("/get/:playlistId" ,
+router.get("/get/playlist/:playlistId" ,
 passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     const playlistId = req.params.playlistId;
@@ -40,6 +40,7 @@ passport.authenticate("jwt", { session: false }),
 
   }
 );
+
 
 
 module.exports = router;
