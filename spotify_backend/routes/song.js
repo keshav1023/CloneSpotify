@@ -38,12 +38,14 @@ router.get(
 // Get route to get all songs any artist has published
 // I will send the artist id and I want to see all songs that artist has published.
 router.get(
-  "/get/artist",
+  "/get/artist/:artistId",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
-    const { artistId } = req.body;
+    const { artistId } = req.params;
     // We can check if the artist does not exist
     const artist = await User.find({ _id: artistId });
+    
+//correction needed    
     if (!artist) {
       res.status(301).json({ err: "Artist does not exist !!!" });
     }
@@ -55,15 +57,16 @@ router.get(
 );
 
 // Get route to get a single song by name
+// Spaces in song name to be taken care of.
 router.get(
-  "/get/songname",
+  "/get/songname/:songName",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
-    const { songName } = req.body;
+    const { songName } = req.params;
 
     const songs = await Song.find({ name: songName });
     console.log("Here are your atist songs : \n", songs);
-    return res.status(200).json({ data: songs });
+    return res.status(200).json({ data: songs});
   }
 );
 
