@@ -69,17 +69,25 @@ passport.authenticate("jwt", { session: false }),
     const currentUser = req.user;
     const {playlistId , songId} = req.body;
 
-    const playlist = await Playlist.find({_id: playlistId});
+    const playlist = await Playlist.findOne({_id: playlistId});
     if(!playlist){
-        return res.status(304).json({err: "Playlist does not exist!!!"});
+        return res.status(301).json({err: "Playlist does not exist!!!"});
     }
-    else if(playlist.owner != currentUser._id && !playlist.collaborators.includes(currentUser._id)){
-        return res.status(400).json({err: "Not allowed"});
+    // console.log(playlist);
+    // console.log(currentUser);
+    // console.log(playlist.owner);
+    // console.log(currentUser._id);
+    // console.log(playlist.owner.equals(currentUser._id));
 
+    if(
+        !playlist.owner.equals(currentUser._id) && 
+        !playlist.collaborators.includes(currentUser._id)
+    ){
+        return res.status(400).json({err: "Not allowed"});
     }
     const song = await Song.findOne({_id: songId});
     if(!song){
-        return res.status(304).json({err: "Song does not exist!!!"});
+        return res.status(301).json({err: "Song does not exist!!!"});
     }
     // validation done , now add song to playlist.
     playlist.songs.push(songId);
