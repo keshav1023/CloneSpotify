@@ -1,4 +1,5 @@
 import spotify_logo from "../assets/images/spotify_logo_white.svg"
+import IconText from "../components/shared/IconText";
 
 const Home = () => {
     return (
@@ -9,6 +10,9 @@ const Home = () => {
                 <div className="logoDiv p-6">
                     <img src={spotify_logo} alt="Spotify Logo" width={125}/>
                 </div>
+                <div>
+                    <IconText />
+                </div>    
             </div>
         {/* Right Panel div */ }    
             <div className="h-full w-4/5 bg-gray-300">
