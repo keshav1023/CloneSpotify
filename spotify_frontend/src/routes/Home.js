@@ -11,7 +11,18 @@ const Home = () => {
                     <img src={spotify_logo} alt="Spotify Logo" width={125}/>
                 </div>
                 <div>
-                    <IconText />
+                    <IconText 
+                        iconName={"material-symbols:home"}
+                        displayText={"Home"}
+                    />
+                    <IconText 
+                        iconName={"ion:search"}
+                        displayText={"Search"}
+                    />
+                    <IconText 
+                        iconName={"icomoon-free:books"}
+                        displayText={"Your Library"}
+                    />
                 </div>    
             </div>
         {/* Right Panel div */ }    
