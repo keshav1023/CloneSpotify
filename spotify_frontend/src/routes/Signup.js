@@ -1,5 +1,5 @@
 import { Icon } from "@iconify/react";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import PasswordInput from "../components/shared/PasswordInput";
 import TextInput from "../components/shared/TextInput";
 
