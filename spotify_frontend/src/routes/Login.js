@@ -7,9 +7,9 @@ const LoginComponent = () => {
                 <Icon icon="logos:spotify"  width="150" />
             </div>
             
-        <div className='inputRegion'>
-            
-        </div>
+        {/* <div className='inputRegion'>
+
+        </div> */}
 
         </div>
     )
