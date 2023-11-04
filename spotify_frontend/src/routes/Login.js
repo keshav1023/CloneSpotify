@@ -27,9 +27,9 @@ const LoginComponent = () => {
             <div className='my-6 font-semibold text-lg'>
                 Don't have an account ?
             </div>
-            <div className='border border-gray-500 text-gray-500 w-full flex items-center justify-center py-4 rounded-full font-bold'>
+            <button className='border border-gray-500 text-gray-500 w-full flex items-center justify-center py-4 rounded-full font-bold'>
                 SIGN UP FOR SPOTIFY
-            </div>
+            </button>
 
         </div>
 
