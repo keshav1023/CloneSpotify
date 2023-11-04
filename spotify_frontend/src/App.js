@@ -1,4 +1,5 @@
-import "./App.css";
+//import "./App.css";
+import "./output.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -8,7 +9,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HelloComponent />} />
           <Route path="/hi" element={<div>Hi</div>} />
-          <Route path="/bye" element={<div>Bye</div>} />
+          <Route path="/bye" element={<div className="bg-blue-500">Bye</div>} />
         </Routes>
       </BrowserRouter>
     </div>
