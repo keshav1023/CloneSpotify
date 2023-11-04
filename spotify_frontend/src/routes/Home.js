@@ -7,7 +7,7 @@ const Home = () => {
             <div className="h-full w-1/5 bg-black">
                 {/* This div is for logo */}
                 <div className="logoDiv p-6">
-                    <img src={spotify_logo} alt="Spotify logo" width={125}/>
+                    <img src={spotify_logo} alt="Spotify Logo" width={125}/>
                 </div>
             </div>
         {/* Right Panel div */ }    
