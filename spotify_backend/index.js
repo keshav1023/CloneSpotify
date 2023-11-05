@@ -11,9 +11,11 @@ const playlistRoutes = require("./routes/playlist");
 const JwtStrategy = require("passport-jwt").Strategy,
   ExtractJwt = require("passport-jwt").ExtractJwt;
 require("dotenv").config();
+const cors = require("cors");
 const app = express();
 const port = 8000;
 
+app.use(cors());
 app.use(express.json());
 
 mongoose
