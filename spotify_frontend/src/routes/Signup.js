@@ -1,4 +1,5 @@
 import { Icon } from "@iconify/react";
+import {useCookies} from "react-cookie";
 import {Link} from "react-router-dom";
 import PasswordInput from "../components/shared/PasswordInput";
 import TextInput from "../components/shared/TextInput";
@@ -12,6 +13,7 @@ const SignupComponent = () => {
   const [password,setPassword] = useState("");
   const [firstName,setFirstname] = useState("");
   const [lastName,setLastname] = useState("");
+  const [cookie, setCookie] = useCookies(["token"]);
 
 const signUp= async () =>{
   if(email !== confirmEmail){
@@ -21,7 +23,10 @@ const signUp= async () =>{
   const data ={email, password, userName, firstName, lastName};
   const response = await makeUnauthenticatedPOSTResquest("/auth/register", data);
   if(response && !response.err){
-    console.log(response);
+    const token = response.token;
+    const date = new Date(); 
+    date.setDate(date.getDate() + 30);
+    setCookie("token", token, {path: "/", expires: date});
     alert("Success !!!!")
   }else{
     alert("Failure :( ")
