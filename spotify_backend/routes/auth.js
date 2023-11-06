@@ -2,7 +2,8 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/Users");
 const bcrypt = require("bcrypt");
-const {getToken} =require("../utils/helper")
+const {getToken} =require("../utils/helper");
+
 
 // this POST route will help in registering a user
 router.post("/register",async (req,res) =>{
@@ -19,7 +20,7 @@ router.post("/register",async (req,res) =>{
     //if doesnot exist , create a new user.
     // we convert plain text password to a hash.
 
-    const hashedPassword = bcrypt.hash(password,10);
+    const hashedPassword = await bcrypt.hash(password,10);
     const newUserData = {
         email,
         password: hashedPassword,
@@ -42,7 +43,7 @@ router.post("/register",async (req,res) =>{
 
 router.post("/login", async (req,res) => {
     // Get email and password sent by user from req.body.
-    const {email,pasword} = req.body;
+    const {email,password} = req.body;
     
     // Check if user exists , else invalid credentials.
     const user= await User.findOne({email:email});
