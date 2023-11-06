@@ -1,39 +1,42 @@
 import { Icon } from "@iconify/react";
-import {useCookies} from "react-cookie";
-import {Link, useNavigate} from "react-router-dom";
+import { useCookies } from "react-cookie";
+import { Link, useNavigate } from "react-router-dom";
 import PasswordInput from "../components/shared/PasswordInput";
 import TextInput from "../components/shared/TextInput";
 import { useState } from "react";
 import { makeUnauthenticatedPOSTResquest } from "../utils/serverHelper";
 
 const SignupComponent = () => {
-  const [email,setEmail] = useState("");
-  const [confirmEmail,setConfirmEmail] = useState("");
-  const [userName,setUsername] = useState("");
-  const [password,setPassword] = useState("");
-  const [firstName,setFirstname] = useState("");
-  const [lastName,setLastname] = useState("");
+  const [email, setEmail] = useState("");
+  const [confirmEmail, setConfirmEmail] = useState("");
+  const [userName, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [firstName, setFirstname] = useState("");
+  const [lastName, setLastname] = useState("");
   const [cookie, setCookie] = useCookies(["token"]);
   const navigate = useNavigate();
 
-const signUp= async () =>{
-  if(email !== confirmEmail){
-    alert("Email and confirm email fields must match. Please check again");
-    return
-  }
-  const data ={email, password, userName, firstName, lastName};
-  const response = await makeUnauthenticatedPOSTResquest("/auth/register", data);
-  if(response && !response.err){
-    const token = response.token;
-    const date = new Date(); 
-    date.setDate(date.getDate() + 30);
-    setCookie("token", token, {path: "/", expires: date});
-    alert("Success !!!!");
-    navigate("/home");
-  }else{
-    alert("Failure :( ")
-  }
-}  
+  const signUp = async () => {
+    if (email !== confirmEmail) {
+      alert("Email and confirm email fields must match. Please check again");
+      return;
+    }
+    const data = { email, password, userName, firstName, lastName };
+    const response = await makeUnauthenticatedPOSTResquest(
+      "/auth/register",
+      data
+    );
+    if (response && !response.err) {
+      const token = response.token;
+      const date = new Date();
+      date.setDate(date.getDate() + 30);
+      setCookie("token", token, { path: "/", expires: date });
+      alert("Success !!!!");
+      navigate("/home");
+    } else {
+      alert("Failure :( ");
+    }
+  };
 
   return (
     <div className="w-full h-full flex flex-col items-center">
@@ -87,14 +90,15 @@ const signUp= async () =>{
             value={lastName}
             setValue={setLastname}
           />
-          
         </div>
         <div className="w-full flex items-center justify-center my-8">
-          <button className="bg-green-300 font-semibold p-3 px-10 rounded-full" 
+          <button
+            className="bg-green-300 font-semibold p-3 px-10 rounded-full"
             onClick={(e) => {
               e.preventDefault();
               signUp();
-            }}>
+            }}
+          >
             Sign up
           </button>
         </div>
