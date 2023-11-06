@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
 import {useCookies} from "react-cookie";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import PasswordInput from "../components/shared/PasswordInput";
 import TextInput from "../components/shared/TextInput";
 import { useState } from "react";
@@ -14,6 +14,7 @@ const SignupComponent = () => {
   const [firstName,setFirstname] = useState("");
   const [lastName,setLastname] = useState("");
   const [cookie, setCookie] = useCookies(["token"]);
+  const navigate = useNavigate();
 
 const signUp= async () =>{
   if(email !== confirmEmail){
@@ -27,7 +28,8 @@ const signUp= async () =>{
     const date = new Date(); 
     date.setDate(date.getDate() + 30);
     setCookie("token", token, {path: "/", expires: date});
-    alert("Success !!!!")
+    alert("Success !!!!");
+    navigate("/home");
   }else{
     alert("Failure :( ")
   }
