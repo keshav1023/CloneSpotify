@@ -1,13 +1,25 @@
+import { useState, useEffect} from "react";
 import { Icon } from "@iconify/react";
 import spotify_logo from "../assets/images/spotify_logo_white.svg";
 import IconText from "../components/shared/IconText";
 import SingleSongCard from "../components/shared/SingleSongCard";
 import TextWithHover from "../components/shared/TextWithHover";
+import { makeAuthenticatedGETResquest } from "../utils/serverHelper";
 
+const MyMusic = () => {
 
-const MyMusic = () => {    
+    const[songData, setSongData] = useState([]);
 
-
+    useEffect(()=>{
+        //fetch data
+        const getData = async () => {
+            const response = await makeAuthenticatedGETResquest(
+                "/song/get/mysongs"
+            );
+            setSongData(response.data);
+        };
+        getData();
+    },[]);
 
   return (
     <div className="h-full w-full flex">
@@ -52,38 +64,34 @@ const MyMusic = () => {
       {/* Right Panel div */}
       <div className="h-full w-4/5 bg-app-black overflow-auto">
         <div className="navbar bg-black bg-opacity-30 w-full h-1/10 flex items-center justify-end">
-            <div className="w-1/2 flex h-full">
-                <div className="w-3/5 flex justify-around items-center">
-                    <TextWithHover displayText={"Premium"}/>
-                    <TextWithHover displayText={"Support"}/>
-                    <TextWithHover displayText={"Download"}/>
-                    <div className="h-2/3 border-r border-white"></div>
-                </div>
-                <div className="w-1/3 flex justify-around h-full items-center">
-                    <TextWithHover displayText={"Upload Songs"}/>
-                    <div className="bg-white w-10 h-10 rounded-full flex items-center justify-center font-semibold cursor-pointer">
-                        AC
-                    </div>
-                </div>
+          <div className="w-1/2 flex h-full">
+            <div className="w-3/5 flex justify-around items-center">
+              <TextWithHover displayText={"Premium"} />
+              <TextWithHover displayText={"Support"} />
+              <TextWithHover displayText={"Download"} />
+              <div className="h-2/3 border-r border-white"></div>
             </div>
+            <div className="w-1/3 flex justify-around h-full items-center">
+              <TextWithHover displayText={"Upload Songs"} />
+              <div className="bg-white w-10 h-10 rounded-full flex items-center justify-center font-semibold cursor-pointer">
+                AC
+              </div>
+            </div>
+          </div>
         </div>
         <div className="content p-8 overflow-auto">
-            <div className="text-white text-xl font-semibold pb-4 pl-2">My Songs</div>
-            <div className="space-y-3 overflow-auto">
-                <SingleSongCard />
-                <SingleSongCard />
-                <SingleSongCard />
-                <SingleSongCard />
-                <SingleSongCard />
-                <SingleSongCard />
-                <SingleSongCard />
-            </div>
+          <div className="text-white text-xl font-semibold pb-4 pl-2">
+            My Songs
+          </div>
+          <div className="space-y-3 overflow-auto">
+            {songData.map((item)=>{
+                return <SingleSongCard info={item} />
+            })}
+          </div>
         </div>
       </div>
     </div>
   );
 };
-
-
 
 export default MyMusic;
