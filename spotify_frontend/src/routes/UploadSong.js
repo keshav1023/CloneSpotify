@@ -40,7 +40,7 @@ const UploadSong = () => {
             <img src={spotify_logo} alt="Spotify Logo" width={125} />
           </div>
           <div className="py-5">
-            <IconText iconName={"material-symbols:home"} displayText={"Home"} />
+            <IconText iconName={"material-symbols:home"} displayText={"Home"} active />
             <IconText iconName={"ion:search"} displayText={"Search"} />
             <IconText
               iconName={"icomoon-free:books"}
