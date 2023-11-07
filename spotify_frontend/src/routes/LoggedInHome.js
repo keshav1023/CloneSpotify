@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { Howl, Howler } from "howler";
 import spotify_logo from "../assets/images/spotify_logo_white.svg";
 import IconText from "../components/shared/IconText";
 import { Icon } from "@iconify/react";
@@ -89,6 +91,36 @@ const soundOfIndiaCardsData =[
 ];
 
 const Home = () => {
+    const [soundPlayed, setSoundPlayed] = useState(null);
+    const [isPaused, setIsPaused] = useState(true);
+
+    const playSound = (songSrc) => {
+        if (soundPlayed) {
+          soundPlayed.stop();
+        }
+        let sound = new Howl({
+          src: [songSrc],
+          html5: true,
+        });
+        setSoundPlayed(sound);
+        sound.play();
+      };
+
+      const pausedSound = ()=>{
+        soundPlayed.pause();
+      };
+
+      const togglePlayPause = () =>{
+        if(isPaused){
+            playSound("https://res.cloudinary.com/dcrerbv5m/video/upload/v1699332019/bir0uy0kcfxzvnslsork.mp3");
+            setIsPaused(false);
+        }
+        else{
+            pausedSound();
+            setIsPaused(true);
+        }
+      };
+
   return (
     <div className="h-full w-full bg-app-black">
     <div className="h-9/10 w-full flex">
@@ -168,8 +200,41 @@ const Home = () => {
                 <div className="text-xs text-gray-500 hover:underline cursor-pointer">Prophe C</div>
             </div>
        </div>
-       <div className="w-1/2 bg-green-500 flex justify-center">
-            Songs to be played here
+       <div className="w-1/2 flex justify-center h-full flex-col items-center">
+            <div className="flex w-1/3 justify-between items-center">
+                {/* Controls for playing the song */}
+                <Icon 
+                    icon="ph:shuffle-fill" 
+                    fontSize={30} 
+                    className="cursor-pointer text-gray-500 hover:text-white"
+                    
+                />
+                <Icon 
+                    icon="mi:previous" 
+                    fontSize={30} 
+                    className="cursor-pointer text-gray-500 hover:text-white"
+                    
+                 />
+                <Icon 
+                    icon={isPaused ? "gridicons:play" : "gridicons:pause"} 
+                    fontSize={50} 
+                    className="cursor-pointer text-gray-500 hover:text-white"
+                    onClick={togglePlayPause}
+                 />
+                <Icon 
+                    icon="mi:next" 
+                    fontSize={30} 
+                    className="cursor-pointer text-gray-500 hover:text-white"
+                    
+                 />
+                <Icon 
+                    icon="tabler:repeat" 
+                    fontSize={30} 
+                    className="cursor-pointer text-gray-500 hover:text-white"
+                    
+                 />
+            </div>
+            <div>Progress Bar Here</div>
        </div>
        <div className="w-1/4 flex justify-end">
             Volume control
