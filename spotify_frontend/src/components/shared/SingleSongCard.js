@@ -1,6 +1,6 @@
-const SingleSongCard = ({info}) => {
+const SingleSongCard = ({info, playSound}) => {
     return (
-        <div className="flex hover:bg-gray-400 hover:bg-opacity-20 p-2 rounded-sm">
+        <div className="flex hover:bg-gray-400 hover:bg-opacity-20 p-2 rounded-sm" onClick={()=>{playSound(info.track)}}>
             <div className="w-12 h-12 bg-cover bg-center"
                 style={{
                     backgroundImage: `url("${info.thumbnail}")`
