@@ -3,8 +3,11 @@ import IconText from "../components/shared/IconText";
 import { Icon } from "@iconify/react";
 import TextWithHover from "../components/shared/TextWithHover";
 import TextInput from "../components/shared/TextInput";
+import CloudinaryUpload from "../components/shared/CloudinaryUpload";
 
 const UploadSong = () => {
+    
+console.log(window.cloudinary);
   return (
     <div className="h-full w-full flex">
       {/* Left Panel div */}
@@ -83,6 +86,9 @@ const UploadSong = () => {
                      />
                 </div>
             </div>
+                <div className="pt-5">
+                    <CloudinaryUpload />
+                </div>
 
         </div>
       </div>
