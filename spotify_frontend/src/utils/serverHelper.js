@@ -25,6 +25,19 @@ export const makeAuthenticatedPOSTResquest = async (route,body) => {
     return formattedResponse;
 };
 
+export const makeAuthenticatedGETResquest = async (route) => {
+    const token= getToken();
+    const response = await fetch(backendUrl+route, {
+        method :"GET",
+        headers : {
+            "Content-Type" : "application/json",
+            "Authorization": `Bearer ${token}`,
+        },
+    });
+    const formattedResponse = await response.json();
+    return formattedResponse;
+};
+
 const getToken = () => {
     const accessToken = document.cookie.replace(
         /(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/,
