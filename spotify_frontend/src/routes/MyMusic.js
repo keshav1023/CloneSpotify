@@ -1,4 +1,5 @@
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
+import { Howl, Howler } from "howler";
 import { Icon } from "@iconify/react";
 import spotify_logo from "../assets/images/spotify_logo_white.svg";
 import IconText from "../components/shared/IconText";
@@ -7,19 +8,30 @@ import TextWithHover from "../components/shared/TextWithHover";
 import { makeAuthenticatedGETResquest } from "../utils/serverHelper";
 
 const MyMusic = () => {
+  const [songData, setSongData] = useState([]);
+  const [soundPlayed, setSoundPlayed] = useState(null);
 
-    const[songData, setSongData] = useState([]);
+  const playSound = (songSrc) => {
+    if (soundPlayed) {
+      soundPlayed.stop();
+    }
+    let sound = new Howl({
+      src: [songSrc],
+      html5: true,
+    });
+    setSoundPlayed(sound);
+    sound.play();
+    console.log(sound);
+  };
 
-    useEffect(()=>{
-        //fetch data
-        const getData = async () => {
-            const response = await makeAuthenticatedGETResquest(
-                "/song/get/mysongs"
-            );
-            setSongData(response.data);
-        };
-        getData();
-    },[]);
+  useEffect(() => {
+    //fetch data
+    const getData = async () => {
+      const response = await makeAuthenticatedGETResquest("/song/get/mysongs");
+      setSongData(response.data);
+    };
+    getData();
+  }, []);
 
   return (
     <div className="h-full w-full flex">
@@ -84,8 +96,8 @@ const MyMusic = () => {
             My Songs
           </div>
           <div className="space-y-3 overflow-auto">
-            {songData.map((item)=>{
-                return <SingleSongCard info={item} />
+            {songData.map((item) => {
+              return <SingleSongCard info={item} playSound={playSound} />;
             })}
           </div>
         </div>
