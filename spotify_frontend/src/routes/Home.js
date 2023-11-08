@@ -135,10 +135,22 @@ const Home = () => {
                     <div className="h-1/2 border-r border-white"></div>
                 </div>
                 <div className="w-2/5 flex justify-around h-full items-center">
-                    <TextWithHover displayText={"Sign up"}/>
-                    <div className="bg-white h-2/3 px-8 rounded-full flex items-center justify-center font-semibold cursor-pointer">
-                        Log in
+                     <div className="bg-green-400 h-2/3 px-8  rounded-full flex items-center justify-center font-semibold cursor-pointer">
+
+                        <TextWithHover displayText={"Sign Up"}
+                            targetLink={"/signup"}
+                        />
                     </div>
+                    <div className="bg-green-400 h-2/3 px-8 rounded-full flex items-center justify-center font-semibold cursor-pointer">
+
+                        <TextWithHover displayText={"Log In"}
+                            targetLink={"/login"}
+                        />
+                    </div>
+                    
+                    {/* <div >
+                        Log in
+                    </div> */}
                 </div>
             </div>
         </div>
