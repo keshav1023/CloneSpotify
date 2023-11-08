@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useLayoutEffect, useRef, useState } from "react";
 import { Howl, Howler } from "howler";
 import spotify_logo from "../assets/images/spotify_logo_white.svg";
 import IconText from "../components/shared/IconText";
@@ -6,19 +6,31 @@ import { Icon } from "@iconify/react";
 import TextWithHover from "../components/shared/TextWithHover";
 import songContext from "../contexts/songContext";
 
-const LoggedInContainer = ({children}) => {
-    const [soundPlayed, setSoundPlayed] = useState(null);
-    const [isPaused, setIsPaused] = useState(true);
+const LoggedInContainer = ({children, currentActiveScreen}) => {
 
-    const {currentSong, setCurrentSong} = useContext(songContext);
-    console.log(currentSong);
+    const {
+        currentSong, 
+        setCurrentSong, 
+        soundPlayed, 
+        setSoundPlayed, 
+        isPaused, 
+        setIsPaused
+    } = useContext(songContext);
+    
+    const firstUpdate = useRef(true)
 
-    useEffect(()=> {
+    useLayoutEffect(()=> {
+
+        if(firstUpdate.current){
+            firstUpdate.current = false;
+            return;
+        }
+
         if(!currentSong){
             return;
         }
         changeSong(currentSong.track);
-    }, [currentSong]);
+    }, [currentSong && currentSong.track]);
 
     const playSound = () => {
         if(!soundPlayed){
@@ -69,22 +81,27 @@ const LoggedInContainer = ({children}) => {
                 <IconText 
                     iconName={"material-symbols:home"} 
                     displayText={"Home"} 
-                    active
                     targetLink={"/home"}
+                    active={currentActiveScreen==="home"}
                 />
                 <IconText 
                     iconName={"ion:search"} 
                     displayText={"Search"} 
                     // targetLink={"/search"}
+                    active={currentActiveScreen==="search"}
+
                 />
                 <IconText
                     iconName={"icomoon-free:books"}
                     displayText={"Your Library"}
+                    active={currentActiveScreen==="library"}
+
                 />
                 <IconText
                     iconName={"material-symbols:library-music-sharp"}
-                    displayText={"My music"}
+                    displayText={"My Music"}
                     targetLink={"/myMusic"}
+                    active={currentActiveScreen==="myMusic"}
                 />
             </div>
             <div className="pt-5">
