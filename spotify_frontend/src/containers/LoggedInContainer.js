@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Howl, Howler } from "howler";
 import spotify_logo from "../assets/images/spotify_logo_white.svg";
 import IconText from "../components/shared/IconText";
@@ -13,7 +13,21 @@ const LoggedInContainer = ({children}) => {
     const {currentSong, setCurrentSong} = useContext(songContext);
     console.log(currentSong);
 
-    const playSound = (songSrc) => {
+    useEffect(()=> {
+        if(!currentSong){
+            return;
+        }
+        changeSong(currentSong.track);
+    }, [currentSong]);
+
+    const playSound = () => {
+        if(!soundPlayed){
+            return;
+        }
+        soundPlayed.play();
+    };
+
+    const changeSong = (songSrc) => {
         if (soundPlayed) {
           soundPlayed.stop();
         }
@@ -23,6 +37,7 @@ const LoggedInContainer = ({children}) => {
         });
         setSoundPlayed(sound);
         sound.play();
+        setIsPaused(false);
       };
 
       const pausedSound = ()=>{
