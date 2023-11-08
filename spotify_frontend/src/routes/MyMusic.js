@@ -15,7 +15,7 @@ const MyMusic = () => {
   }, []);
 
   return (
-    <LoggedInContainer>
+    <LoggedInContainer currentActiveScreen="myMusic">
       <div className="text-white text-xl font-semibold pb-4 pl-2 pt-8">My Songs</div>
       <div className="space-y-3 overflow-auto">
         {songData.map((item) => {
