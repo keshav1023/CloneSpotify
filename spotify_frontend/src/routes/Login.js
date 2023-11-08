@@ -14,13 +14,10 @@ const LoginComponent = () => {
 
   const logIn = async () => {
     const data = { email, password };
-    const response = await makeUnauthenticatedPOSTResquest(
-      "/auth/login",
-      data
-    );
+    const response = await makeUnauthenticatedPOSTResquest("/auth/login", data);
     console.log(response);
-    console.log("Response is : "+response);
-    console.log("Response Token is : "+response);
+    console.log("Response is : " + response);
+    console.log("Response Token is : " + response);
     if (response && !response.err) {
       const token = response.token;
       const date = new Date();
