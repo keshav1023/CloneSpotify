@@ -17,7 +17,6 @@ router.post(
     const artist = req.user._id;
     const songDetails = { name, thumbnail, track, artist };
     const createdSong = await Song.create(songDetails);
-    console.log("Song Created successfuly", createdSong);
     return res.status(200).json(createdSong);
   }
 );
@@ -30,7 +29,6 @@ router.get(
     const currentUser = req.user;
     // We need to get all songs where artist id == currentUser._id
     const songs = await Song.find({ artist: req.user._id }).populate("artist");
-    console.log("Here are my songs : \n", songs);
     return res.status(200).json({ data: songs });
   }
 );
@@ -44,14 +42,12 @@ router.get(
     const { artistId } = req.params;
     // We can check if the artist does not exist
     const artist = await User.findOne({ _id: artistId });
-    
-  
+
     if (!artist) {
       res.status(301).json({ err: "Artist does not exist !!!" });
     }
 
     const songs = await Song.find({ artist: artistId });
-    console.log("Here are your atist songs : \n", songs);
     return res.status(200).json({ data: songs });
   }
 );
@@ -64,9 +60,10 @@ router.get(
   async (req, res) => {
     const { songName } = req.params;
 
-    const songs = await Song.find({ name: songName }).populate("artist");
-    console.log("Here are your atist songs : \n", songs);
-    return res.status(200).json({ data: songs});
+    const songs = await Song.find({
+      name: { $regex: ".*" + songName + ".*", $options: "i" },
+    }).populate("artist");
+    return res.status(200).json({ data: songs });
   }
 );
 
