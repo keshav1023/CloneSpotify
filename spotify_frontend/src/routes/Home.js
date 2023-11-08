@@ -155,7 +155,7 @@ const Home = () => {
 
 const PlaylistView = ({titleText,cardsData}) => {
     return <div className="text-white mt-8">
-        <div className="text-2xl font-semibold mb-5">{titleText}</div>
+        <div className="text-2xl font-semibold mb-5 cursor-pointer">{titleText}</div>
         <div className="w-full flex justify-between space-x-4">
             {
                 // cards data will be an array
