@@ -7,6 +7,7 @@ import HomeComponent from "./routes/Home";
 import LoggedInHomeComponent from "./routes/LoggedInHome"
 import UploadSong from "./routes/UploadSong";
 import MyMusic from "./routes/MyMusic";
+import SearchPage from "./routes/SearchPage";
 import { useCookies } from "react-cookie";
 import songContext from "./contexts/songContext";
 
@@ -38,6 +39,7 @@ function App() {
                 <Route path="/home" element={<LoggedInHomeComponent />} />
                 <Route path="/uploadSong" element={<UploadSong />} />
                 <Route path="/myMusic" element={<MyMusic />} />
+                <Route path="/search" element={<SearchPage />} />
                 <Route path="*" element={<Navigate to="/home" />} />
             </Routes>
           </songContext.Provider>
