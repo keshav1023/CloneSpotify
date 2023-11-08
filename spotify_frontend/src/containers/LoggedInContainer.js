@@ -1,13 +1,17 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Howl, Howler } from "howler";
 import spotify_logo from "../assets/images/spotify_logo_white.svg";
 import IconText from "../components/shared/IconText";
 import { Icon } from "@iconify/react";
 import TextWithHover from "../components/shared/TextWithHover";
+import songContext from "../contexts/songContext";
 
 const LoggedInContainer = ({children}) => {
     const [soundPlayed, setSoundPlayed] = useState(null);
     const [isPaused, setIsPaused] = useState(true);
+
+    const {currentSong, setCurrentSong} = useContext(songContext);
+    console.log(currentSong);
 
     const playSound = (songSrc) => {
         if (soundPlayed) {
@@ -27,7 +31,7 @@ const LoggedInContainer = ({children}) => {
 
       const togglePlayPause = () =>{
         if(isPaused){
-            playSound("https://res.cloudinary.com/dcrerbv5m/video/upload/v1699332019/bir0uy0kcfxzvnslsork.mp3");
+            playSound(currentSong.track);
             setIsPaused(false);
         }
         else{
@@ -38,7 +42,7 @@ const LoggedInContainer = ({children}) => {
 
   return (
     <div className="h-full w-full bg-app-black">
-    <div className="h-9/10 w-full flex">
+    <div className={`${currentSong ? "h-9/10" : "h-full"} w-full flex`}>
         {/* Left Panel div */}
         <div className="h-full w-1/5 bg-black flex flex-col justify-between pb-10">
             {/* This div is for logo */}
@@ -100,58 +104,66 @@ const LoggedInContainer = ({children}) => {
         </div>
       </div>
       {/* This div is the current playing song */}
-      <div className="w-full h-1/10 bg-black bg-opacity-30 text-white flex items-center px-4">
-       <div className="w-1/4 flex items-center">
-            <img  
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSgO3eEz3PsKnktBWVpsXiyIOCIgZgTudPGg&usqp=CAU" 
-                alt="currentSongThumbnail"
-                className="h-14 w-14 rounded"
-            />
-            <div className="pl-4">
-                <div className="text-sm hover:underline cursor-pointer">Takda hi Jawan</div>
-                <div className="text-xs text-gray-500 hover:underline cursor-pointer">Prophe C</div>
-            </div>
-       </div>
-       <div className="w-1/2 flex justify-center h-full flex-col items-center">
-            <div className="flex w-1/3 justify-between items-center">
-                {/* Controls for playing the song */}
-                <Icon 
-                    icon="ph:shuffle-fill" 
-                    fontSize={30} 
-                    className="cursor-pointer text-gray-500 hover:text-white"
-                    
+
+      { currentSong &&
+        <div className="w-full h-1/10 bg-black bg-opacity-30 text-white flex items-center px-4">
+        <div className="w-1/4 flex items-center">
+                <img  
+                    src={currentSong.thumbnail}
+                    alt="currentSongThumbnail"
+                    className="h-14 w-14 rounded"
                 />
-                <Icon 
-                    icon="mi:previous" 
-                    fontSize={30} 
-                    className="cursor-pointer text-gray-500 hover:text-white"
-                    
-                 />
-                <Icon 
-                    icon={isPaused ? "gridicons:play" : "gridicons:pause"} 
-                    fontSize={50} 
-                    className="cursor-pointer text-gray-500 hover:text-white"
-                    onClick={togglePlayPause}
-                 />
-                <Icon 
-                    icon="mi:next" 
-                    fontSize={30} 
-                    className="cursor-pointer text-gray-500 hover:text-white"
-                    
-                 />
-                <Icon 
-                    icon="tabler:repeat" 
-                    fontSize={30} 
-                    className="cursor-pointer text-gray-500 hover:text-white"
-                    
-                 />
-            </div>
-            <div>Progress Bar Here</div>
-       </div>
-       <div className="w-1/4 flex justify-end">
-            Volume control
-       </div>
-      </div>
+                <div className="pl-4">
+                    <div className="text-sm hover:underline cursor-pointer">
+                        {currentSong.name}
+                    </div>
+                    <div className="text-xs text-gray-500 hover:underline cursor-pointer">
+                        {currentSong.artist.firstName + " " + currentSong.artist.lastName}
+                    </div>
+                </div>
+        </div>
+        <div className="w-1/2 flex justify-center h-full flex-col items-center">
+                <div className="flex w-1/3 justify-between items-center">
+                    {/* Controls for playing the song */}
+                    <Icon 
+                        icon="ph:shuffle-fill" 
+                        fontSize={30} 
+                        className="cursor-pointer text-gray-500 hover:text-white"
+                        
+                    />
+                    <Icon 
+                        icon="mi:previous" 
+                        fontSize={30} 
+                        className="cursor-pointer text-gray-500 hover:text-white"
+                        
+                    />
+                    <Icon 
+                        icon={isPaused ? "gridicons:play" : "gridicons:pause"} 
+                        fontSize={50} 
+                        className="cursor-pointer text-gray-500 hover:text-white"
+                        onClick={togglePlayPause}
+                    />
+                    <Icon 
+                        icon="mi:next" 
+                        fontSize={30} 
+                        className="cursor-pointer text-gray-500 hover:text-white"
+                        
+                    />
+                    <Icon 
+                        icon="tabler:repeat" 
+                        fontSize={30} 
+                        className="cursor-pointer text-gray-500 hover:text-white"
+                        
+                    />
+                </div>
+                <div>Progress Bar Here</div>
+        </div>
+        <div className="w-1/4 flex justify-end">
+                Volume control
+        </div>
+        </div>
+      }
+
     </div>
   );
 };
