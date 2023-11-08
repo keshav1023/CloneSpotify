@@ -66,25 +66,35 @@ const LoggedInContainer = ({children}) => {
                 <img src={spotify_logo} alt="Spotify Logo" width={125} />
             </div>
             <div className="py-5">
-                <IconText iconName={"material-symbols:home"} displayText={"Home"} />
-                <IconText iconName={"ion:search"} displayText={"Search"} />
-                <IconText
-                iconName={"icomoon-free:books"}
-                displayText={"Your Library"}
+                <IconText 
+                    iconName={"material-symbols:home"} 
+                    displayText={"Home"} 
+                    active
+                    targetLink={"/home"}
+                />
+                <IconText 
+                    iconName={"ion:search"} 
+                    displayText={"Search"} 
+                    // targetLink={"/search"}
                 />
                 <IconText
-                iconName={"material-symbols:library-music-sharp"}
-                displayText={"My music"}
+                    iconName={"icomoon-free:books"}
+                    displayText={"Your Library"}
+                />
+                <IconText
+                    iconName={"material-symbols:library-music-sharp"}
+                    displayText={"My music"}
+                    targetLink={"/myMusic"}
                 />
             </div>
             <div className="pt-5">
                 <IconText
-                iconName={"material-symbols:add-box"}
-                displayText={"Create Playlist"}
+                    iconName={"material-symbols:add-box"}
+                    displayText={"Create Playlist"}
                 />
                 <IconText
-                iconName={"fluent-emoji:heart-decoration"}
-                displayText={"Liked Songs"}
+                    iconName={"fluent-emoji:heart-decoration"}
+                    displayText={"Liked Songs"}
                 />
             </div>
             </div>
