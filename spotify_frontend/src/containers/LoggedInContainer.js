@@ -87,7 +87,7 @@ const LoggedInContainer = ({children, currentActiveScreen}) => {
                 <IconText 
                     iconName={"ion:search"} 
                     displayText={"Search"} 
-                    // targetLink={"/search"}
+                    targetLink={"/search"}
                     active={currentActiveScreen==="search"}
 
                 />
