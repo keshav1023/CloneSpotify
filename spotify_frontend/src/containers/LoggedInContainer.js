@@ -133,7 +133,7 @@ const LoggedInContainer = ({children, currentActiveScreen}) => {
                         <div className="h-2/3 border-r border-white"></div>
                     </div>
                     <div className="w-1/3 flex justify-around h-full items-center">
-                        <TextWithHover displayText={"Upload Songs"}/>
+                        <TextWithHover targetLink={"/uploadSong"} displayText={"Upload Songs"}/>
                         <div className="bg-white w-10 h-10 rounded-full flex items-center justify-center font-semibold cursor-pointer">
                             AC
                         </div>
