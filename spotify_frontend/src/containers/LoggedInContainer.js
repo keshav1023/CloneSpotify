@@ -205,8 +205,17 @@ const LoggedInContainer = ({children, currentActiveScreen}) => {
                 </div>
                 <div>Progress Bar Here</div>
         </div>
-        <div className="w-1/4 flex justify-end">
-                Volume control
+        <div className="w-1/4 flex justify-end pr-4 space-x-4 items-center">
+                <Icon 
+                    icon="ic:round-playlist-add" 
+                    fontSize={35} 
+                    className="cursor-pointer text-gray-500 hover:text-white"    
+                />
+                <Icon 
+                    icon="ph:heart-bold" 
+                    fontSize={30} 
+                    className="cursor-pointer text-gray-500 hover:text-white"    
+                />
         </div>
         </div>
       }
