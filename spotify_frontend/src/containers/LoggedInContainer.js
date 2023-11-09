@@ -5,8 +5,10 @@ import IconText from "../components/shared/IconText";
 import { Icon } from "@iconify/react";
 import TextWithHover from "../components/shared/TextWithHover";
 import songContext from "../contexts/songContext";
+import CreatePlaylistModal from "../modals/CreatePlaylistModal";
 
 const LoggedInContainer = ({children, currentActiveScreen}) => {
+    const [CreatePlaylistModalOpen, setCreatePlaylistModalOpen] =useState(false);
 
     const {
         currentSong, 
@@ -69,6 +71,7 @@ const LoggedInContainer = ({children, currentActiveScreen}) => {
 
   return (
     <div className="h-full w-full bg-app-black">
+    {CreatePlaylistModalOpen && <CreatePlaylistModal closeModal={()=>{setCreatePlaylistModalOpen(false)}}/>}
     <div className={`${currentSong ? "h-9/10" : "h-full"} w-full flex`}>
         {/* Left Panel div */}
         <div className="h-full w-1/5 bg-black flex flex-col justify-between pb-10">
@@ -108,6 +111,7 @@ const LoggedInContainer = ({children, currentActiveScreen}) => {
                 <IconText
                     iconName={"material-symbols:add-box"}
                     displayText={"Create Playlist"}
+                    onClick={()=>{setCreatePlaylistModalOpen(true)}}
                 />
                 <IconText
                     iconName={"fluent-emoji:heart-decoration"}
@@ -209,6 +213,5 @@ const LoggedInContainer = ({children, currentActiveScreen}) => {
     </div>
   );
 };
-
 
 export default LoggedInContainer;
