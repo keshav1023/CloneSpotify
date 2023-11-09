@@ -97,6 +97,7 @@ const LoggedInContainer = ({children, currentActiveScreen}) => {
                 <IconText
                     iconName={"icomoon-free:books"}
                     displayText={"Your Library"}
+                    targetLink={"/library"}
                     active={currentActiveScreen==="library"}
 
                 />
