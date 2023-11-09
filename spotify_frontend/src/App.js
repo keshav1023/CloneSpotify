@@ -10,6 +10,7 @@ import MyMusic from "./routes/MyMusic";
 import SearchPage from "./routes/SearchPage";
 import { useCookies } from "react-cookie";
 import songContext from "./contexts/songContext";
+import Library from "./routes/Library";
 
 function App() {
   const [currentSong, setCurrentSong] = useState(null);
@@ -40,6 +41,7 @@ function App() {
                 <Route path="/uploadSong" element={<UploadSong />} />
                 <Route path="/myMusic" element={<MyMusic />} />
                 <Route path="/search" element={<SearchPage />} />
+                <Route path="/library" element={<Library />} />
                 <Route path="*" element={<Navigate to="/home" />} />
             </Routes>
           </songContext.Provider>
