@@ -44,6 +44,17 @@ passport.authenticate("jwt", { session: false }),
   }
 );
 
+// Get all playlist made by me
+router.get("/get/me" ,
+passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const artistId =req.user._id;
+    
+    const playlists = await Playlist.find({owner: artistId}).populate("owner");
+    return res.status(200).json({data: playlists});
+  }
+);
+
 // Get all playlist of an artist
 router.get("/get/artist/:artistId" ,
 passport.authenticate("jwt", { session: false }),
