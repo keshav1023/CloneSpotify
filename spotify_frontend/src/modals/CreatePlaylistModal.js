@@ -1,6 +1,20 @@
+import { useState } from "react";
 import TextInput from "../components/shared/TextInput";
+import { makeAuthenticatedPOSTResquest } from "../utils/serverHelper";
 
 const CreatePlaylistModal = ({closeModal})=> {
+    const [playlistName, setPlaylistName] = useState("");
+    const [playlistThumbnail, setPlaylistThumbnail] = useState("");
+
+    const createPlaylist = async () => {
+        const response = await makeAuthenticatedPOSTResquest(
+            "/playlist/create",
+            {name:playlistName, thumbnail:playlistThumbnail, songs:[]})
+        if(response._id){
+            closeModal();
+        }    
+    };
+
     return (
         <div className="absolute bg-black w-screen h-screen bg-opacity-70 flex justify-center items-center"
             onClick={closeModal}
@@ -14,17 +28,22 @@ const CreatePlaylistModal = ({closeModal})=> {
                         label="Name"
                         labelClassName="text-white"
                         placeholder="Playlist Name"
-                        // value=""
-                        // setValue=""
+                        value={playlistName}
+                        setValue={setPlaylistName}
                     />
                     <TextInput
                         label="Thumbnail"
                         labelClassName="text-white"
                         placeholder="Thumbnail"
-                        // value=""
-                        // setValue=""
+                        value={playlistThumbnail}
+                        setValue={setPlaylistThumbnail}
                     />
-                    <div className="bg-white w-1/4 rounded-md flex justify-center items-center font-semibold py-3 mt-4 cursor-pointer ">Create</div>
+                    <div 
+                        className="bg-white w-1/4 rounded-md flex justify-center items-center font-semibold py-3 mt-4 cursor-pointer "
+                        onClick={createPlaylist}
+                    >
+                        Create
+                    </div>
                 </div>
             </div>
         </div>
