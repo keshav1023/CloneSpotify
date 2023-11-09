@@ -11,13 +11,14 @@ router.post("/create",
 passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     const currentUser = req.user;
-    const {name,thumbnail,songs} = req.body;
-    if(!name || !thumbnail || !songs){
+    const {name,thumbnail,description,songs} = req.body;
+    if(!name || !thumbnail || !songs || !description){
         return res.status(301).json({err: "Insufficient Data !!!"});
     }
     const playlistData = {
         name,
         thumbnail,
+        description,
         songs,
         owner: currentUser._id,
         collaborators: [],
