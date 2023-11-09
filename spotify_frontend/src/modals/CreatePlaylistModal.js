@@ -4,12 +4,13 @@ import { makeAuthenticatedPOSTResquest } from "../utils/serverHelper";
 
 const CreatePlaylistModal = ({closeModal})=> {
     const [playlistName, setPlaylistName] = useState("");
+    const [playlistDesc, setPlaylistDesc] = useState("");
     const [playlistThumbnail, setPlaylistThumbnail] = useState("");
 
     const createPlaylist = async () => {
         const response = await makeAuthenticatedPOSTResquest(
             "/playlist/create",
-            {name:playlistName, thumbnail:playlistThumbnail, songs:[]})
+            {name:playlistName, thumbnail:playlistThumbnail,description:playlistDesc, songs:[]})
         if(response._id){
             closeModal();
         }    
@@ -37,6 +38,13 @@ const CreatePlaylistModal = ({closeModal})=> {
                         placeholder="Thumbnail"
                         value={playlistThumbnail}
                         setValue={setPlaylistThumbnail}
+                    />
+                    <TextInput
+                        label="Description"
+                        labelClassName="text-white"
+                        placeholder="Decription"
+                        value={playlistDesc}
+                        setValue={setPlaylistDesc}
                     />
                     <div 
                         className="bg-white w-1/4 rounded-md flex justify-center items-center font-semibold py-3 mt-4 cursor-pointer "
