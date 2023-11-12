@@ -67,4 +67,27 @@ router.get(
   }
 );
 
+
+//Like a song
+
+router.post("/like/song" ,
+passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const currentUser = req.user;
+    console.log(req.body);
+    const {songId} = req.body;
+
+    const user = await User.findOne({_id: currentUser});
+    console.log(user.likedSongs);
+
+    user.likedSongs.push(songId);
+    await user.save();
+
+    return res.status(200).json(user);
+
+  }
+);
+
+
+
 module.exports = router;
