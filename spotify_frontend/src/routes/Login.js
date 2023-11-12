@@ -1,5 +1,5 @@
 import { Icon } from "@iconify/react";
-import { useCookies } from "react-cookie";
+// import { useCookies } from "react-cookie";
 import { Link, useNavigate } from "react-router-dom";
 import PasswordInput from "../components/shared/PasswordInput";
 import TextInput from "../components/shared/TextInput";
@@ -7,28 +7,27 @@ import { useState } from "react";
 import { makeUnauthenticatedPOSTResquest } from "../utils/serverHelper";
 
 const LoginComponent = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [cookie, setCookie] = useCookies(["token"]);
-  const navigate = useNavigate();
+const [email, setEmail] = useState("");
+const [password, setPassword] = useState("");
+// const [cookie, setCookie] = useCookies(["token"]);
+const navigate = useNavigate();
 
-  const logIn = async () => {
-    const data = { email, password };
-    const response = await makeUnauthenticatedPOSTResquest("/auth/login", data);
-    console.log(response);
-    console.log("Response is : " + response);
-    console.log("Response Token is : " + response);
-    if (response && !response.err) {
-      const token = response.token;
-      const date = new Date();
-      date.setDate(date.getDate() + 30);
-      setCookie("token", token, { path: "/", expires: date });
-      alert("Success !!!!");
-      navigate("/home");
-    } else {
-      alert("Failure :( ");
-    }
-  };
+const logIn = async () => {
+const data = { email, password };
+const response = await makeUnauthenticatedPOSTResquest("/auth/login", data);
+console.log(response);
+console.log("Response is : " + response);
+console.log("Response Token is : " + response);
+if (response && !response.err) {
+  const token = response.token;
+  await localStorage.setItem('userLoginSessionToken', token);
+  alert("Success !!!!");
+  navigate("/home");
+  navigate(0);
+} else {
+alert("Failure :( ");
+}
+};
 
   return (
     <div className="w-full h-full flex flex-col items-center">

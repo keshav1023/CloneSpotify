@@ -91,6 +91,7 @@ const soundOfIndiaCardsData =[
 const Home = () => {
   return (
     <div className="h-full w-full flex">
+    
       {/* Left Panel div */}
       <div className="h-full w-1/5 bg-black flex flex-col justify-between pb-10">
         {/* This div is for logo */}

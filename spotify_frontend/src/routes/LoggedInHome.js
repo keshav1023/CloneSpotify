@@ -93,7 +93,7 @@ const soundOfIndiaCardsData =[
 
 const Home = () => {
     return (
-        <LoggedInContainer currentActiveScreen="home" >
+        <LoggedInContainer currentActiveScreen="home"  >
 
             <PlaylistView titleText="Focus" cardsData={focusCardsData} />
             <PlaylistView titleText="Spotify Playlist" cardsData={spotifyPLaylistCardsData} />

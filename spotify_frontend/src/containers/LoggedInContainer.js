@@ -1,4 +1,5 @@
 import { useContext, useLayoutEffect, useRef, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import { Howl, Howler } from "howler";
 import spotify_logo from "../assets/images/spotify_logo_white.svg";
 import IconText from "../components/shared/IconText";
@@ -78,6 +79,16 @@ const LoggedInContainer = ({ children, currentActiveScreen }) => {
       setIsPaused(true);
     }
   };
+
+  const navigate = useNavigate();
+    const handleLogout = () => {
+      // Delete token from localStorage
+      localStorage.removeItem('userLoginSessionToken');
+  
+      // Redirect to the "/login" route
+      navigate('/login');
+      navigate(0);
+    };
 
   return (
     <div className="h-full w-full bg-app-black">
@@ -166,8 +177,10 @@ const LoggedInContainer = ({ children, currentActiveScreen }) => {
                   targetLink={"/uploadSong"}
                   displayText={"Upload Songs"}
                 />
-                <div className="bg-white w-10 h-10 rounded-full flex items-center justify-center font-semibold cursor-pointer">
-                  AC
+                <div className="bg-white w-12 h-10 rounded-md flex items-center justify-center font-semibold cursor-pointer text-xs"
+                  onClick={handleLogout}
+                >
+                  Logout
                 </div>
               </div>
             </div>
@@ -241,6 +254,9 @@ const LoggedInContainer = ({ children, currentActiveScreen }) => {
               icon="ph:heart-bold"
               fontSize={30}
               className="cursor-pointer text-gray-500 hover:text-white"
+              onClick={() => {
+                setAddToPlaylistModalOpen(true);
+              }}
             />
           </div>
         </div>
