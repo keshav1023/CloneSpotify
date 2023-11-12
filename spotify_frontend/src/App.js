@@ -24,7 +24,7 @@ function App() {
   return (
     <div className="w-screen h-screen font-poppins">
       <BrowserRouter>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<div>Loading......</div>}>
         {token ? (
           // Logged in routes
           <songContext.Provider 
