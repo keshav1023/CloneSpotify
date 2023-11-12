@@ -22,11 +22,12 @@ const User = new mongoose.Schema({
         type : String,
         required : true,
     },
-    likedSongs:{
-        // Will change further
-        type : String,
-        default : "",
-    },
+    likedSongs:[
+        {
+        type : mongoose.Types.ObjectId,
+        ref : "Song",
+        },
+    ],
     likedPlaylists:{
         // Will change further
         type : String,
@@ -38,6 +39,9 @@ const User = new mongoose.Schema({
         default : "",
     }
 });
+
+
+
 
 const UserModel = mongoose.model("User", User);
 
