@@ -88,6 +88,17 @@ passport.authenticate("jwt", { session: false }),
   }
 );
 
-
+// Get route to get all songs i have liked.
+router.get(
+  "/get/myLiked/songs",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const currentUser = req.user;
+    // We need to get all songs where artist id == currentUser._id
+    const songs = await User.find({ _id: currentUser, likedSongs: { $exists: true, $not: { $size: 0 } } })
+    .populate('likedSongs');
+    return res.status(200).json({ data: songs });
+  }
+);
 
 module.exports = router;
