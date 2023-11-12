@@ -1,29 +1,31 @@
 import "./output.css";
-import { useState } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import LoginComponent from "./routes/Login";
-import SignupComponent from "./routes/Signup";
-import HomeComponent from "./routes/Home";
-import LoggedInHomeComponent from "./routes/LoggedInHome"
-import UploadSong from "./routes/UploadSong";
-import MyMusic from "./routes/MyMusic";
-import SearchPage from "./routes/SearchPage";
-import { useCookies } from "react-cookie";
 import songContext from "./contexts/songContext";
-import Library from "./routes/Library";
-import SinglePlaylistView from "./routes/SinglePlaylistView"
+import React, {useState,lazy, Suspense } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+
+// Lazy-loaded components
+const HomeComponent = lazy(() => import('./routes/Home'));
+const LoginComponent = lazy(() => import('./routes/Login'));
+const SignupComponent = lazy(() => import('./routes/Signup'));
+const LoggedInHomeComponent = lazy(() => import('./routes/LoggedInHome'));
+const UploadSong = lazy(() => import('./routes/UploadSong'));
+const MyMusic = lazy(() => import('./routes/MyMusic'));
+const SearchPage = lazy(() => import('./routes/SearchPage'));
+const Library = lazy(() => import('./routes/Library'));
+const SinglePlaylistView = lazy(() => import('./routes/SinglePlaylistView'));
 
 function App() {
+
   const [currentSong, setCurrentSong] = useState(null);
   const [soundPlayed, setSoundPlayed] = useState(null);
   const [isPaused, setIsPaused] = useState(true);
-  const [cookie, setCookie] = useCookies(["token"]);
-  console.log(cookie.token);
+  const token = localStorage.getItem("userLoginSessionToken");
 
   return (
     <div className="w-screen h-screen font-poppins">
       <BrowserRouter>
-        {cookie.token ? (
+        <Suspense fallback={<div>Loading...</div>}>
+        {token ? (
           // Logged in routes
           <songContext.Provider 
             value={{
@@ -57,6 +59,7 @@ function App() {
             <Route path="*" element={<Navigate to="/login" />} />
           </Routes>
         )}
+        </Suspense>
       </BrowserRouter>
     </div>
   );
