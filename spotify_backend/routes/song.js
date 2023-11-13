@@ -73,19 +73,26 @@ router.get(
 router.post("/like/song" ,
 passport.authenticate("jwt", { session: false }),
   async (req, res) => {
-    const currentUser = req.user;
-    console.log(req.body);
-    const {songId} = req.body;
+    try {
+      const currentUser = req.user;
+      const { songId } = req.body;
 
-    const user = await User.findOne({_id: currentUser});
-    console.log(user.likedSongs);
+      const user = await User.findOne({ _id: currentUser });
 
-    user.likedSongs.push(songId);
-    await user.save();
+      // Check if the songId is already in the likedSongs array
+      if (!user.likedSongs.some(song => song._id.toString() === songId)) {
+        user.likedSongs.push({ _id: songId });
+        await user.save();
+      } else {
+        console.log("Song already liked");
+      }
 
-    return res.status(200).json(user);
-
-  }
+      return res.status(200).json(user);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+    }
 );
 
 // Get route to get all songs i have liked.
