@@ -95,8 +95,12 @@ router.get(
   async (req, res) => {
     const currentUser = req.user;
     // We need to get all songs where artist id == currentUser._id
-    const songs = await User.find({ _id: currentUser, likedSongs: { $exists: true, $not: { $size: 0 } } })
-    .populate('likedSongs');
+    const songs = await User.find({ _id: currentUser, likedSongs: { $exists: true, $not: { $size: 0 } } }).populate({
+      path: "likedSongs",
+      populate: {
+        path: "artist",
+      },
+    });
     return res.status(200).json({ data: songs });
   }
 );
