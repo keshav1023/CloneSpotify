@@ -1,5 +1,5 @@
 import { useContext, useLayoutEffect, useRef, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { Howl, Howler } from "howler";
 import spotify_logo from "../assets/images/spotify_logo_white.svg";
 import IconText from "../components/shared/IconText";
@@ -40,9 +40,12 @@ const LoggedInContainer = ({ children, currentActiveScreen }) => {
     const songId = currentSong._id;
     const payload = { playlistId, songId };
 
-    const response = await makeAuthenticatedPOSTResquest("/playlist/add/song", payload);
-    if(response._id){
-        setAddToPlaylistModalOpen(false);
+    const response = await makeAuthenticatedPOSTResquest(
+      "/playlist/add/song",
+      payload
+    );
+    if (response._id) {
+      setAddToPlaylistModalOpen(false);
     }
   };
 
@@ -81,14 +84,25 @@ const LoggedInContainer = ({ children, currentActiveScreen }) => {
   };
 
   const navigate = useNavigate();
-    const handleLogout = () => {
-      // Delete token from localStorage
-      localStorage.removeItem('userLoginSessionToken');
-  
-      // Redirect to the "/login" route
-      navigate('/login');
-      navigate(0);
-    };
+  const handleLogout = () => {
+    // Delete token from localStorage
+    localStorage.removeItem("userLoginSessionToken");
+
+    // Redirect to the "/login" route
+    navigate("/login");
+    navigate(0);
+  };
+
+  // const toggleHeart = (prop) => {
+  //   const heartButton = document.getElementById("heartButton");
+  //   console.log(prop+", Heart button is : -  "+heartButton);
+  //   heartButton.classList.toggle("text-red-500");
+  // };
+  const [isFilled, setIsFilled] = useState(false);
+
+  const toggleHeart = () => {
+    setIsFilled(!isFilled);
+  };
 
   return (
     <div className="h-full w-full bg-app-black">
@@ -177,7 +191,8 @@ const LoggedInContainer = ({ children, currentActiveScreen }) => {
                   targetLink={"/uploadSong"}
                   displayText={"Upload Songs"}
                 />
-                <div className="bg-white w-12 h-10 rounded-md flex items-center justify-center font-semibold cursor-pointer text-xs"
+                <div
+                  className="bg-white w-12 h-10 rounded-md flex items-center justify-center font-semibold cursor-pointer text-xs"
                   onClick={handleLogout}
                 >
                   Logout
@@ -250,13 +265,31 @@ const LoggedInContainer = ({ children, currentActiveScreen }) => {
                 setAddToPlaylistModalOpen(true);
               }}
             />
-            <Icon
+            {/* <Icon
               icon="ph:heart-bold"
               fontSize={30}
               className="cursor-pointer text-gray-500 hover:text-white"
               onClick={() => {
-                setAddToPlaylistModalOpen(true);
+                toggleHeart();
               }}
+            /> */}
+            {/* <button
+              class="relative p-2 text-gray-500 bg-transparent border-none focus:outline-none transform scale-100 transition-transform hover:scale-110"
+              id="heartButton"
+              onClick={() => {
+                toggleHeart("Hello");
+              }}
+            >
+              <svg class="w-8 h-8 fill-current" viewBox="0 0 24 24">
+                <path d="M12 21.35l-1.45-1.32C6.47 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-4.47 6.86-8.55 11.54L12 21.35z" />
+              </svg>
+            </button> */}
+            <Icon
+              icon="heroicons:heart-20-solid"
+              fontSize={30}
+              style={{ color: isFilled ? "red" : "gray" }}
+              className="cursor-pointer hover:text-white"
+              onClick={toggleHeart}
             />
           </div>
         </div>
