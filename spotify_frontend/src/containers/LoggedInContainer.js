@@ -166,6 +166,8 @@ const LoggedInContainer = ({ children, currentActiveScreen }) => {
               <IconText
                 iconName={"fluent-emoji:heart-decoration"}
                 displayText={"Liked Songs"}
+                targetLink={"/likedSongs"}
+                active={currentActiveScreen === "likedSongs"}
               />
             </div>
           </div>
