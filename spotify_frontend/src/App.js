@@ -10,6 +10,7 @@ const SignupComponent = lazy(() => import('./routes/Signup'));
 const LoggedInHomeComponent = lazy(() => import('./routes/LoggedInHome'));
 const UploadSong = lazy(() => import('./routes/UploadSong'));
 const MyMusic = lazy(() => import('./routes/MyMusic'));
+const LikedSongs = lazy(() => import('./routes/LikedSongs'));
 const SearchPage = lazy(() => import('./routes/SearchPage'));
 const Library = lazy(() => import('./routes/Library'));
 const SinglePlaylistView = lazy(() => import('./routes/SinglePlaylistView'));
@@ -43,6 +44,7 @@ function App() {
                 <Route path="/home" element={<LoggedInHomeComponent />} />
                 <Route path="/uploadSong" element={<UploadSong />} />
                 <Route path="/myMusic" element={<MyMusic />} />
+                <Route path="/likedSongs" element={<LikedSongs />} />
                 <Route path="/search" element={<SearchPage />} />
                 <Route path="/library" element={<Library />} />
                 <Route path="/playlist/:playlistId" element={<SinglePlaylistView />} />
