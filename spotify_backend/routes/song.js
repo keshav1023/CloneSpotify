@@ -101,4 +101,26 @@ router.get(
   }
 );
 
+// Post route to remove a song from a user's likedSongs
+router.post(
+  '/remove/likedSong',
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+  const currentUser = req.user;
+  
+  const { songId } = req.body;
+
+  const user = await User.findById(currentUser);
+
+  const songIndex =  user.likedSongs.findIndex((song) => song.equals(songId));
+
+  user.likedSongs.splice(songIndex, 1);
+
+    // Save the updated user
+    await user.save();
+
+    return res.status(200).json({ data: user.likedSongs, message: 'Song removed from likedSongs' });
+  
+});
+
 module.exports = router;
